@@ -1,17 +1,17 @@
-# @itookit/driver-llm
+# @nestos/driver-llm
 
 独立的 TypeScript 模型通信客户端，支持 OpenAI Chat、Responses、ChatGPT 订阅 OAuth、Anthropic、Gemini 和可注入传输的 Codex。提供统一请求与响应、流式解析、多模态编码、超时和取消。
 
-发布产物没有运行时或 peer 依赖。ESM、CommonJS 与类型声明均可直接使用；通信消息类型由本包定义，源码与构建均不依赖其他 `@itookit/*` 包。
+发布产物没有运行时或 peer 依赖。ESM、CommonJS 与类型声明均可直接使用；通信消息类型由本包定义，源码与构建均不依赖其他 `@nestos/*` 包。
 
 ## 安装和调用
 
 ```sh
-npm install @itookit/driver-llm
+npm install @nestos/driver-llm
 ```
 
 ```ts
-import { LLMDriver } from '@itookit/driver-llm';
+import { LLMDriver } from '@nestos/driver-llm';
 
 const client = new LLMDriver({
   provider: 'openai',
@@ -80,7 +80,7 @@ const client = new LLMDriver({
 自定义 Provider ID 可在 `customProviderDefaults` 中声明 `implementation:'chatgpt'`，并显式提供 `defaultProtocol:'openai-responses'`、`baseURL:'https://api.openai.com/v1'`、模型目录及同一个 `chatgpt.session`。这一实现类型始终应用订阅通道限制，不能用覆盖协议绕过。
 
 ```ts
-import { LLMDriver, createChatGPTAuthSession, listChatGPTModels } from '@itookit/driver-llm';
+import { LLMDriver, createChatGPTAuthSession, listChatGPTModels } from '@nestos/driver-llm';
 
 // credentialStore and renewAndSaveCredentials are supplied by the host.
 // Bind this session to one validated account/workspace registration.
@@ -118,9 +118,9 @@ try {
 
 | 入口 | 用途 |
 |---|---|
-| `@itookit/driver-llm` | 客户端、Provider、流与附件工具、错误和公开类型 |
-| `@itookit/driver-llm/contracts` | 通信类型与纯协议函数；不加载客户端或子进程实现 |
-| `@itookit/driver-llm/chain` | 可选顺序提示词组合 |
+| `@nestos/driver-llm` | 客户端、Provider、流与附件工具、错误和公开类型 |
+| `@nestos/driver-llm/contracts` | 通信类型与纯协议函数；不加载客户端或子进程实现 |
+| `@nestos/driver-llm/chain` | 可选顺序提示词组合 |
 
 浏览器的 HTTP Provider 使用标准 Web API。Codex 默认在 Node 中延迟启动本地 CLI；浏览器或嵌入式宿主通过 `codex.transport` 或 `codex.runner` 注入执行能力。调用 `dispose()` 释放客户端持有的 Codex 资源。
 
@@ -129,7 +129,7 @@ try {
 `metering` 只做计量归约，不含任何费率或价格表。
 
 ```ts
-import { meterUsage, mergeTokenUsage, addMetered, type MeteredTokens } from '@itookit/driver-llm/contracts';
+import { meterUsage, mergeTokenUsage, addMetered, type MeteredTokens } from '@nestos/driver-llm/contracts';
 
 const metered = meterUsage(response.usage, 'anthropic-messages');
 // {inputTokens, outputTokens, cacheReadTokens, cacheWriteTokens, reasoningTokens}
@@ -152,14 +152,14 @@ const metered = meterUsage(response.usage, 'anthropic-messages');
 - 构造客户端时显式提供模型与供应商配置，不依赖 MindOS 的默认连接、定价目录或 VFS 初始化。
 
 
-`@itookit/driver-llm/contracts` 也导出 `ILLMService`：以 connectionId 调用模型的服务端口。它只定义接口，连接仓储、默认连接和凭据管理由宿主实现；`LLMDriver` 是单客户端 API，不直接实现该命名连接服务。
+`@nestos/driver-llm/contracts` 也导出 `ILLMService`：以 connectionId 调用模型的服务端口。它只定义接口，连接仓储、默认连接和凭据管理由宿主实现；`LLMDriver` 是单客户端 API，不直接实现该命名连接服务。
 
 模型选择：testLLMConnection 必须提供 model，或通过 providerDefinition.models 注入测试目录；缺失时返回 Model is required，不猜测厂商模型。Codex 优先使用请求 model，再使用客户端配置 model；两者缺失时不发送模型覆盖，由 Codex 宿主选择，响应不伪造已选模型名称。
 
 ## Provider 扩展与迁移
 
 ```ts
-import { LLMDriver, createProviderRegistry } from '@itookit/driver-llm';
+import { LLMDriver, createProviderRegistry } from '@nestos/driver-llm';
 
 const registry = createProviderRegistry({ custom: YourProvider });
 const client = new LLMDriver({ provider: 'custom', apiKey: 'key',

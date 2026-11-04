@@ -1,4 +1,4 @@
-# @itookit/driver-llm
+# @nestos/driver-llm
 
 独立模型通信模块：Provider 协议、流式解析、超时、取消、多模态编码和可替换重试策略。
 
@@ -11,7 +11,7 @@
 - Codex 子进程仅在显式使用 Codex Provider 时延迟加载；浏览器由宿主注入 transport。
 - 所有导出、类型声明与 ESM/CJS 必须在仓库外 tarball 消费者中验证。
 
-验证：`pnpm --filter @itookit/driver-llm test`、`typecheck`、`build`。
+验证：`pnpm --filter @nestos/driver-llm test`、`typecheck`、`build`。
 
 模型选择归调用方：连接测试不得猜测模型；Codex 未指定模型时让宿主使用其配置，不内置命名模型默认值。
 

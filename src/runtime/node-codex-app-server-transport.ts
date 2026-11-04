@@ -20,7 +20,7 @@ export class NodeCodexAppServerTransport extends JsonRpcLineTransport {
         const transport = new NodeCodexAppServerTransport(child);
         transport.start();
         await transport.request('initialize', {
-            clientInfo: { name: '@itookit/driver-llm', title: 'iTooKit LLM Driver', version: '0.1.0' },
+            clientInfo: { name: '@nestos/driver-llm', title: 'iTooKit LLM Driver', version: '0.1.0' },
             capabilities: { experimentalApi: true },
         });
         transport.notify('initialized');

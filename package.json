@@ -1,5 +1,5 @@
 {
-  "name": "@itookit/driver-llm",
+  "name": "@nestos/driver-llm",
   "version": "0.5.0",
   "description": "Standalone model protocol client with streaming, cancellation and injectable transport",
   "type": "module",
@@ -85,7 +85,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/nest-agentos/driver-llm.git"
+    "url": "git+https://github.com/nest-agentos/driver-llm.git"
   },
   "bugs": {
     "url": "https://github.com/nest-agentos/driver-llm/issues"
